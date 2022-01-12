@@ -6,6 +6,8 @@ package com.webservice12.webservice12;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,36 +21,42 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author ASUS
  */
+@CrossOrigin
 @RestController
-@RequestMapping(value = "/mahasiswa")
+@RequestMapping(value = "/mahasiswaku",produces={MediaType.APPLICATION_JSON_VALUE})
 public class DatabaseController {
     @Autowired
     Repositorymahasiswa repositorymahasiswa;
             
-    @PostMapping(value = "/addmahasiswa")
-    public Datamahasiswa adddatamahasiswa(@RequestBody Datamahasiswa Param)
+    @PostMapping("/addmahasiswa")
+    public Mahasiswa adddatamahasiswa(@RequestBody Mahasiswa Param)
     {
         repositorymahasiswa.save(Param);
         return Param;
     }
     
-    @GetMapping(value = "/allmahasiswa")
-    public List<Datamahasiswa> alldatamahasiswa()
+    @GetMapping("/allmahasiswa")
+    public List<Mahasiswa> alldatamahasiswa()
     {
         return repositorymahasiswa.findAll();
     }
+    @GetMapping("/alltomahasiswa")
+    public Mahasiswa getdatamahasiswa(@RequestParam int id)
+    {
+        return repositorymahasiswa.findById(id).get();
+    }
     
-    @PutMapping(value = "/updatemahasiswa")
-    public Datamahasiswa updatedatamahasiswa(@RequestBody Datamahasiswa Param)
+    @PutMapping("/updatemahasiswa")
+    public Mahasiswa updatedatamahasiswa(@RequestBody Mahasiswa Param)
     {
        return repositorymahasiswa.save(Param);
     }
     
-    @DeleteMapping(value = "/hapusmahasiswa")
-    public List<Datamahasiswa> hapusdatamahasiswa(@RequestParam int id)
+    @DeleteMapping("/hapusmahasiswa")
+    public List<Mahasiswa> hapusdatamahasiswa(@RequestParam int id)
     {
         repositorymahasiswa.deleteById(id);
-        List<Datamahasiswa> datamahasiswalist = repositorymahasiswa.findAll();
+        List<Mahasiswa> datamahasiswalist = repositorymahasiswa.findAll();
         return datamahasiswalist;
     }
 }

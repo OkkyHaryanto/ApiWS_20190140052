@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author ASUS
  */
-public interface Repositorymahasiswa extends JpaRepository<Datamahasiswa, Integer>{
+public interface Repositorymahasiswa extends JpaRepository<Mahasiswa, Integer>{
     
 }
